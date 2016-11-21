@@ -46,6 +46,9 @@ function $(str) {
 function Line(data, id) {
 	this.draw = $(id).getContext("2d");
 	this.data = data;
+	for(var k in data){
+		this.data[k] = parseInt($(id).offsetHeight - 50 - data[k])
+	}
 	this.drawLine();
 	this.point();
 }
