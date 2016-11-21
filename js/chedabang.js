@@ -4,7 +4,7 @@
  * 描述：通用图形库
  * 版权声明:
  *  (1) 本文件中的JavaScript代码与注释版权归原作者所有
- *  (2) 本文件中的中文注释版权归本人所有. 请自由下载与传播本文件,但请勿用于商业用途
+ *  (2) 各位童鞋可以自由下载与传播本文件,但请勿用于商业用途。<(￣︶￣)>(*^__^*)<(￣︶￣)>
  */
 function getClass(classname) //  类的写法
 {
@@ -12,7 +12,7 @@ function getClass(classname) //  类的写法
 	if(document.getElementsByClassName) {
 		return document.getElementsByClassName(classname);
 	}
-	var arr = []; //用于返回 数组
+	var arr = []; //用于返回 数组选项
 	var dom = document.getElementsByTagName("*");
 	for(var i = 0; i < dom.length; i++) // 遍历所有的 盒子
 	{
@@ -49,6 +49,9 @@ function Line(data, id) {
 	for(var k in data){
 		this.data[k] = parseInt($(id).offsetHeight - 50 - data[k])
 	}
+	//这里的for循环恨重要，因为canvas的坐标轴起始点和平时咱们见到的折线图坐标不一样的。
+	//所以需要for循环对这个数组值进行倒换。
+	//（说实话这个超级简单的问题，根本就是小学生的算术，我当时第一想到却是利用排序。看到知识会的多也不是好事呀）
 	this.drawLine();
 	this.point();
 }
@@ -83,7 +86,7 @@ Line.prototype = {
 		draw.fillText("0", 45, 566);
 		draw.fillText("Y轴", 50, 45);
 		draw.fillText("X轴", 916, 555)
-
+		//这些坐标轴以后估计得简化一下，这个轴线的浪费的代码太少了。
 		//绘制坐标轴辅助线
 		var x1 = 50;
 		var x2 = 850;
@@ -129,11 +132,10 @@ Line.prototype = {
 		draw.closePath();
 		draw.save();
 	},
+	//下面的是画折线的圆点
 	point: function() {
 		var draw = this.draw;
 					var x = 100;
-					draw.beginPath();
-					draw.fillStyle = "red";
 					for(var k in data) {
 						draw.beginPath();
 						draw.fillStyle = "red";
@@ -145,11 +147,49 @@ Line.prototype = {
 						x += 60;
 						draw.closePath();
 						draw.fill();
+						//这里一定要注意呀，这个每画一个点都必须开始路径，并结束。否则颜色填充会填充出一大堆问题。
 					}
-	
-		draw.fillStyle = "red"; //填充颜色,默认是黑色
-		draw.fill(); //画实心圆
-		draw.closePath();
-
+	}
+}
+function Pie(data, id) {
+	this.draw = $(id).getContext("2d");
+	this.data = data;
+	this.pie();
+}
+Pie.prototype = {
+	contructor: Pie,
+	pie: function() {
+		var draw = this.draw;
+		var num = 0;
+		for(var k in data) {
+			num += parseInt(data[k]);
+		}
+		colors = ["blue", "#49be38", "red", "green", "yellow", "pink","#ff3365","orange","purple"]
+		var startAngle = 0;
+		var endAngle = 0;
+		for(var k in data) {
+			//绘制饼状图
+			var endAngle = endAngle + 2 * Math.PI * (data[k] / num);
+			draw.beginPath();
+			draw.fillStyle = colors[k % 9];
+			draw.moveTo(300, 300);
+			draw.arc(300, 300, 200, startAngle, endAngle, false);
+			draw.closePath();
+			draw.fill();
+			startAngle = endAngle;
+			//绘制文字和形状
+			draw.fillRect(700,30*(parseInt(k) + 1),50,20);
+			draw.font = "bold 16px Microsoft Yahei";
+			draw.textBaseline = "top";//设置文本基线，一个冷门知识点。主要是因为老外的英语
+			draw.moveTo(800,30);
+			draw.fillText("第"+(parseInt(k)+1)+"个月份额",760,30*(parseInt(k)+1));
+			var percent = Math.round((data[k]/num)*10000)/100 + "%";
+			//var percent =(data[k]/num).toFixed(4) + "%";  原本这样能够得到四位小数点，但是一旦再乘上100，那么就会出问题。有几个数小数位变的很长。
+			draw.fillText(percent,870,30*(parseInt(k)+1));
+			//绘制矩形
+			/*var ha = 0.034000000000001.toFixed(4)*100;
+			console.log(ha);   例如这里输出就是3.4000000000000004*/
+			
+		}
 	}
 }

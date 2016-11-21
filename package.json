@@ -1,0 +1,28 @@
+{
+  "name": "chedabang.js",
+  "version": "1.0.0",
+  "description": "One on the line chart",
+  "main": "gulpfile.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CheDabang/chedabang.js.git"
+  },
+  "keywords": [
+    "line",
+    "chart"
+  ],
+  "author": "chedabang",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/CheDabang/chedabang.js/issues"
+  },
+  "homepage": "https://github.com/CheDabang/chedabang.js#readme",
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-rename": "^1.2.2",
+    "gulp-uglify": "^2.0.0"
+  }
+}
