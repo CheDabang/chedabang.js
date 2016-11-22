@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="js/chedabang.min.js"></script>
+	</head>
+	<body>
+		<canvas id="draw" width="960" height="600">请将您的浏览器升级到最新版</canvas>
+		<canvas id="pie" width="960" height="600">请将您的浏览器升级到最新版</canvas>
+		<canvas id="bar" width="960" height="600">请将您的浏览器升级到最新版</canvas>
+	</body>
+</html>
+<script type="text/javascript">
+	var data = {
+		0: 260,
+		1: 200,
+		2: 168,
+		3: 450,
+		4: 360,
+		5: 320,
+		6: 237,
+		7: 189,
+		8: 257,
+		9: 389,
+		10: 289,
+		11: 236
+	}
+	var line = new Line(data, "#draw");
+	var pie = new Pie(data, "#pie");
+	var bar = new Bar(data,"#bar");
+</script>
