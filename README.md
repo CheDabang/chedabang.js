@@ -33,7 +33,9 @@
 ```
 new Pie(data,id);   语法格式
 ```
+
 **具体实例**
+
 ```
 <script type="text/javascript">
 	var data = {
@@ -58,7 +60,9 @@ new Pie(data,id);   语法格式
 ```
 new Bar(data,id);   语法格式
 ```
+
 **具体实例**
+```
 <script type="text/javascript">
 	var data = {
 		0: 260,
@@ -76,3 +80,4 @@ new Bar(data,id);   语法格式
 	}
 	var bar = new Bar(data, "#bar");
 </script>
+```
